@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apni Vidya - AI-Powered Student Growth Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Sora:wght@400;600;700;800&family=JetBrains+Mono:wght@400&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      /* Colors */
+      --bg-base: #050B18;
+      --bg-elevated: #0D1829;
+      --accent-blue: #3D7EFF;
+      --accent-teal: #00D4B8;
+      --accent-purple: #B47EFF;
+      --text-main: #FFFFFF;
+      --text-muted: #94A3B8;
+      --border-glow: rgba(61, 126, 255, 0.2);
+      --card-glass: rgba(13, 24, 41, 0.6);
+      --glass-border: rgba(255, 255, 255, 0.08);
+
+      /* Typography */
+      --font-display: 'Sora', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      /* Spacing & Layout */
+      --section-padding: 100px 5%;
+      --card-radius: 20px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      overflow-x: hidden;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    .nav-brand {
+      font-family: var(--font-display);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    /* Utilities */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      color: var(--accent-teal);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      display: inline-block;
+      background: rgba(0, 212, 184, 0.1);
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: 1px solid rgba(0, 212, 184, 0.2);
+    }
+
+    .section-title {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, var(--text-main), var(--text-muted));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .glass-card {
+      background: var(--card-glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--card-radius);
+      padding: 30px;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .glass-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 30px rgba(61, 126, 255, 0.15),
+        0 0 0 1px rgba(61, 126, 255, 0.3);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 28px;
+      border-radius: 100px;
+      font-weight: 600;
+      font-family: var(--font-body);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--accent-blue);
+      color: white;
+      box-shadow: 0 0 20px rgba(61, 126, 255, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .btn-primary:hover::after {
+      left: 100%;
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 0 30px rgba(61, 126, 255, 0.6);
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-main);
+      border: 1px solid var(--glass-border);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Animations */
+    @keyframes float {
+      0% {
+        transform: translateY(0px) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-20px) rotate(2deg);
+      }
+
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+    }
+
+    @keyframes pulse-glow {
+      0% {
+        box-shadow: 0 0 0 0 rgba(61, 126, 255, 0.4);
+      }
+
+      70% {
+        box-shadow: 0 0 0 15px rgba(61, 126, 255, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(61, 126, 255, 0);
+      }
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 1. NAVBAR */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .navbar.scrolled {
+      padding: 15px 5%;
+      background: rgba(5, 11, 24, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .nav-brand {
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-brand .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent-blue);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent-blue);
+      animation: pulse-glow 2s infinite;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+
+    /* 2. HERO SECTION */
+    .hero {
+      padding: 180px 5% 100px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(61, 126, 255, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(180, 126, 255, 0.1) 0%, transparent 40%),
+        linear-gradient(to bottom, transparent 0%, var(--bg-base) 100%);
+      z-index: -1;
+    }
+
+    .grid-lines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: -1;
+      mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: 4.5rem;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      font-weight: 800;
+    }
+
+    .hero-text h1 span {
+      color: var(--text-muted);
+    }
+
+    .hero-text h1 .highlight {
+      color: var(--accent-teal);
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      max-width: 500px;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+    }
+
+    /* Dashboard Mockup in Hero */
+    .hero-visual {
+      position: relative;
+      height: 500px;
+      perspective: 1000px;
+    }
+
+    .mockup-main {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotateY(-15deg) rotateX(5deg);
+      width: 500px;
+      height: 320px;
+      background: rgba(13, 24, 41, 0.8);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      backdrop-filter: blur(20px);
+      box-shadow: -20px 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(61, 126, 255, 0.2);
+      padding: 20px;
+      z-index: 2;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .mockup-header {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .mockup-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ff5f56;
+    }
+
+    .mockup-dot:nth-child(2) {
+      background: #ffbd2e;
+    }
+
+    .mockup-dot:nth-child(3) {
+      background: #27c93f;
+    }
+
+    .mockup-body {
+      display: flex;
+      gap: 20px;
+      height: calc(100% - 30px);
+    }
+
+    .mockup-sidebar {
+      width: 40px;
+      border-right: 1px solid var(--glass-border);
+      padding-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .mockup-sidebar-item {
+      width: 20px;
+      height: 2px;
+      background: var(--glass-border);
+      border-radius: 2px;
+    }
+
+    .mockup-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .mockup-chart {
+      height: 120px;
+      background: linear-gradient(to top, rgba(61, 126, 255, 0.1), transparent);
+      border-radius: 8px;
+      border-bottom: 2px solid var(--accent-blue);
+      position: relative;
+    }
+
+    .mockup-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      height: 100%;
+      padding: 0 10px;
+    }
+
+    .mockup-bar {
+      flex: 1;
+      background: var(--accent-blue);
+      border-radius: 4px 4px 0 0;
+      opacity: 0.7;
+    }
+
+    .mockup-cards {
+      display: flex;
+      gap: 15px;
+    }
+
+    .mockup-card-small {
+      flex: 1;
+      height: 70px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+    }
+
+    .floating-element {
+      position: absolute;
+      background: var(--card-glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 15px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      z-index: 3;
+    }
+
+    .float-1 {
+      top: 20%;
+      right: -20px;
+      animation: float 5s ease-in-out infinite 1s;
+    }
+
+    /* AI Tutor Bubble */
+    .float-2 {
+      bottom: 10%;
+      left: -30px;
+      animation: float 7s ease-in-out infinite 0.5s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Portfolio Card */
+    .float-3 {
+      top: 10%;
+      left: 10%;
+      animation: float 4s ease-in-out infinite 2s;
+      padding: 10px;
+      border-radius: 50%;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    /* Trophy */
+
+    /* 3. STATS BAR */
+    .stats-bar {
+      padding: 60px 5%;
+      border-top: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--glass-border);
+      background: rgba(13, 24, 41, 0.3);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      text-align: center;
+    }
+
+    .stat-item h3 {
+      font-size: 2.5rem;
+      color: var(--accent-teal);
+      margin-bottom: 8px;
+      text-shadow: 0 0 20px rgba(0, 212, 184, 0.3);
+    }
+
+    .stat-item p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* 4. ACADEMIC AI PORTAL */
+    .academic-ai {
+      padding: var(--section-padding);
+      position: relative;
+    }
+
+    /* Section Divider */
+    .wave-divider {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+      transform: translateY(-99%);
+    }
+
+    .wave-divider svg {
+      display: block;
+      width: calc(100% + 1.3px);
+      height: 50px;
+    }
+
+    .wave-divider .shape-fill {
+      fill: var(--bg-base);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.05);
+      width: 60px;
+      height: 60px;
+      line-height: 60px;
+      text-align: center;
+      border-radius: 12px;
+      border: 1px solid var(--glass-border);
+    }
+
+    .feature-card h3 {
+      margin-bottom: 10px;
+      font-size: 1.25rem;
+    }
+
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* 5. SKILL DEVELOPMENT */
+    .skills-section {
+      padding: var(--section-padding);
+      background: linear-gradient(180deg, var(--bg-base) 0%, rgba(13, 24, 41, 0.8) 100%);
+      border-top: 1px solid var(--glass-border);
+    }
+
+    .skills-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-top: 40px;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .skill-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      font-size: 1.1rem;
+      padding: 15px 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      border: 1px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .skill-item:hover {
+      border-color: var(--border-glow);
+      background: rgba(61, 126, 255, 0.05);
+    }
+
+    .skill-item .check {
+      color: var(--accent-teal);
+      font-weight: bold;
+    }
+
+    .course-mockup {
+      background: var(--bg-elevated);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      position: relative;
+    }
+
+    .course-img {
+      height: 200px;
+      background: linear-gradient(45deg, #1a2a44, #2a3f66);
+      position: relative;
+    }
+
+    .live-badge {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: #ff4757;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      animation: pulse-glow 2s infinite;
+    }
+
+    .course-info {
+      padding: 30px;
+    }
+
+    .mentor-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .mentor-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #ccc;
+    }
+
+    .pill-tags {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+      justify-content: center;
+      width: 100%;
+      grid-column: 1 / -1;
+    }
+
+    .pill {
+      padding: 8px 20px;
+      border-radius: 100px;
+      font-size: 0.9rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+    }
+
+    /* 6. COMPETITIONS */
+    .competitions {
+      padding: var(--section-padding);
+      position: relative;
+      background: radial-gradient(circle at center, rgba(180, 126, 255, 0.1) 0%, var(--bg-base) 70%);
+      text-align: center;
+    }
+
+    .leaderboard-container {
+      max-width: 800px;
+      margin: 50px auto;
+      position: relative;
+    }
+
+    .leaderboard-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 30px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(13, 24, 41, 0.5);
+    }
+
+    .leaderboard-row:first-child {
+      border-radius: 16px 16px 0 0;
+      background: rgba(61, 126, 255, 0.1);
+    }
+
+    .leaderboard-row:last-child {
+      border-radius: 0 0 16px 16px;
+      border-bottom: none;
+    }
+
+    .rank-info {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .rank {
+      font-size: 1.5rem;
+      font-weight: bold;
+      width: 30px;
+    }
+
+    .student-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .comp-chips {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 50px;
+    }
+
+    .comp-chip {
+      padding: 10px 24px;
+      border-radius: 8px;
+      background: rgba(0, 212, 184, 0.1);
+      color: var(--accent-teal);
+      border: 1px solid rgba(0, 212, 184, 0.3);
+      font-weight: 500;
+    }
+
+    /* 7. PORTFOLIO */
+    .portfolio-section {
+      padding: var(--section-padding);
+      text-align: center;
+    }
+
+    .portfolio-wrapper {
+      position: relative;
+      max-width: 900px;
+      margin: 60px auto 0;
+    }
+
+    .portfolio-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .profile-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid var(--bg-base);
+      box-shadow: 0 0 0 2px var(--accent-purple);
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    }
+
+    .rank-badge {
+      background: var(--accent-blue);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      transform: translateY(-15px);
+    }
+
+    .portfolio-stats {
+      display: flex;
+      gap: 20px;
+      margin: 30px 0;
+      width: 100%;
+      justify-content: space-around;
+      border-top: 1px solid var(--glass-border);
+      padding-top: 30px;
+    }
+
+    .mini-chart {
+      width: 120px;
+      height: 40px;
+      background: linear-gradient(90deg, transparent, rgba(0, 212, 184, 0.2) 50%, transparent);
+      position: relative;
+    }
+
+    .mini-chart::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--accent-teal);
+    }
+
+    .floating-tag {
+      position: absolute;
+      background: rgba(13, 24, 41, 0.8);
+      border: 1px solid var(--glass-border);
+      padding: 10px 20px;
+      border-radius: 100px;
+      backdrop-filter: blur(10px);
+      font-size: 0.85rem;
+      z-index: 1;
+      color: var(--text-muted);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .tag-1 {
+      top: -20px;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .tag-2 {
+      top: 20%;
+      right: -5%;
+      animation-delay: 1s;
+    }
+
+    .tag-3 {
+      bottom: 30%;
+      left: -10%;
+      animation-delay: 2s;
+    }
+
+    .tag-4 {
+      bottom: -20px;
+      right: 15%;
+      animation-delay: 0.5s;
+    }
+
+    /* 8. HOW IT WORKS */
+    .timeline-section {
+      padding: var(--section-padding);
+      background: var(--bg-elevated);
+    }
+
+    .timeline {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin-top: 60px;
+      max-width: 1000px;
+      margin-inline: auto;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 25px;
+      left: 50px;
+      right: 50px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+      z-index: 1;
+    }
+
+    .timeline-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 200px;
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .step-node {
+      width: 50px;
+      height: 50px;
+      background: var(--bg-base);
+      border: 2px solid var(--accent-blue);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-bottom: 20px;
+      font-family: var(--font-mono);
+      color: var(--accent-blue);
+      box-shadow: 0 0 15px rgba(61, 126, 255, 0.3);
+    }
+
+    .timeline-step h4 {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+
+    /* 9. TESTIMONIALS */
+    .testimonials {
+      padding: var(--section-padding);
+    }
+
+    .test-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .test-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .stars {
+      color: #f59e0b;
+      margin-bottom: 15px;
+      letter-spacing: 2px;
+    }
+
+    .quote {
+      font-size: 1.05rem;
+      font-style: italic;
+      margin-bottom: 25px;
+      color: var(--text-muted);
+      flex-grow: 1;
+    }
+
+    .author {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      border-top: 1px solid var(--glass-border);
+      padding-top: 20px;
+    }
+
+    .author-img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: #444;
+    }
+
+    .author-info h4 {
+      font-size: 1rem;
+      margin-bottom: 2px;
+    }
+
+    .author-info p {
+      font-size: 0.8rem;
+      color: var(--accent-teal);
+    }
+
+    /* 10. CTA SECTION */
+    .cta-section {
+      padding: 120px 5%;
+      text-align: center;
+      background: linear-gradient(135deg, var(--bg-base) 0%, #0a1936 50%, #062b3d 100%);
+      border-top: 1px solid var(--glass-border);
+    }
+
+    .cta-content {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .cta-section .section-title {
+      font-size: 3.5rem;
+      margin-bottom: 30px;
+    }
+
+    .email-form {
+      display: flex;
+      gap: 10px;
+      max-width: 500px;
+      margin: 40px auto 20px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 8px;
+      border-radius: 100px;
+      border: 1px solid var(--glass-border);
+    }
+
+    .email-form input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 10px 20px;
+      color: white;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .email-form .btn {
+      padding: 12px 30px;
+    }
+
+    .cta-sub {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* 11. FOOTER */
+    .footer {
+      padding: 80px 5% 40px;
+      background: var(--bg-base);
+      border-top: 1px solid var(--glass-border);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 60px;
+    }
+
+    .footer-brand p {
+      color: var(--text-muted);
+      margin-top: 20px;
+      max-width: 300px;
+    }
+
+    .footer-col h4 {
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+      color: white;
+    }
+
+    .footer-col ul {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-col a {
+      color: var(--text-muted);
+      transition: color 0.3s;
+    }
+
+    .footer-col a:hover {
+      color: var(--accent-blue);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 30px;
+      border-top: 1px solid var(--glass-border);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+    }
+
+    .social-icon:hover {
+      background: var(--accent-blue);
+    }
+
+    #scroll-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: var(--accent-blue);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(61, 126, 255, 0.4);
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s;
+    }
+
+    #scroll-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #scroll-top:hover {
+      transform: translateY(-5px);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero-text p {
+        margin: 0 auto 40px;
+      }
+
+      .hero-cta {
+        justify-content: center;
+      }
+
+      .hero-visual {
+        margin-top: 60px;
+      }
+
+      .stats-bar {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .features-grid,
+      .test-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .skills-content {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 40px;
+      }
+
+      .timeline::before {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      /* Add hamburger for mobile in real app */
+      .hero-text h1 {
+        font-size: 3rem;
+      }
+
+      .stats-bar,
+      .features-grid,
+      .test-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .email-form {
+        flex-direction: column;
+        background: transparent;
+        border: none;
+        padding: 0;
+      }
+
+      .email-form input {
+        border: 1px solid var(--glass-border);
+        border-radius: 100px;
+        padding: 15px;
+        margin-bottom: 10px;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .floating-tag {
+        display: none;
+      }
+
+      .mockup-main {
+        width: 100%;
+        max-width: 400px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 1. NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand">
+      <img src="logo.jpeg" alt="Logo"
+        style="height: 44px; border-radius: 50%; background: white; padding: 2px; object-fit: contain;">
+      Apni Vidya
+    </div>
+    <div class="nav-links">
+      <a href="#academic">Academic Portal</a>
+      <a href="#skills">Skills</a>
+      <a href="#competitions">Competitions</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#login">Login</a>
+    </div>
+    <button class="btn btn-primary">Start Free</button>
+  </nav>
+
+  <!-- 2. HERO SECTION -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="grid-lines"></div>
+    <div class="container hero-content">
+      <div class="hero-text fade-up">
+        <h1>One Platform.<br><span>Every Achievement.</span><br><span class="highlight">Every Child.</span></h1>
+        <p>AI-powered learning, skill building, competitions & digital portfolio — built for students from Class 1
+          onwards.</p>
+        <div class="hero-cta">
+          <button class="btn btn-primary">Explore Platform &rarr;</button>
+          <button class="btn btn-ghost">Watch Demo</button>
+        </div>
+      </div>
+
+      <div class="hero-visual fade-up">
+        <div class="floating-element float-1">💬 "Great job! Let's review Algebra."</div>
+        <div class="floating-element float-2">
+          <div style="width: 30px; height: 30px; border-radius: 50%; background: #3D7EFF;"></div>
+          <div>
+            <div style="font-size: 0.8rem; font-weight: bold;">Top 5% Rank</div>
+            <div style="font-size: 0.7rem; color: var(--text-muted);">Updated just now</div>
+          </div>
+        </div>
+        <div class="floating-element float-3">🏆</div>
+
+        <div class="mockup-main">
+          <div class="mockup-header">
+            <div class="mockup-dot"></div>
+            <div class="mockup-dot"></div>
+            <div class="mockup-dot"></div>
+          </div>
+          <div class="mockup-body">
+            <div class="mockup-sidebar">
+              <div class="mockup-sidebar-item" style="width: 100%;"></div>
+              <div class="mockup-sidebar-item"></div>
+              <div class="mockup-sidebar-item"></div>
+              <div class="mockup-sidebar-item"></div>
+            </div>
+            <div class="mockup-content">
+              <div style="font-family: var(--font-display); font-size: 1.2rem;">Welcome back, Aryan! ✨</div>
+              <div class="mockup-cards">
+                <div class="mockup-card-small" style="padding: 10px;">
+                  <div style="font-size: 0.7rem; color: #94A3B8;">Current Streak</div>
+                  <div style="font-size: 1.2rem; font-weight: bold; color: #00D4B8;">14 Days 🔥</div>
+                </div>
+                <div class="mockup-card-small" style="padding: 10px;">
+                  <div style="font-size: 0.7rem; color: #94A3B8;">Next Class</div>
+                  <div style="font-size: 1.2rem; font-weight: bold; color: #B47EFF;">in 30m</div>
+                </div>
+              </div>
+              <div class="mockup-chart">
+                <div class="mockup-bars">
+                  <div class="mockup-bar" style="height: 30%;"></div>
+                  <div class="mockup-bar" style="height: 50%;"></div>
+                  <div class="mockup-bar" style="height: 40%;"></div>
+                  <div class="mockup-bar" style="height: 80%;"></div>
+                  <div class="mockup-bar" style="height: 60%;"></div>
+                  <div class="mockup-bar" style="height: 100%; opacity: 1; box-shadow: 0 0 10px var(--accent-blue);">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. STATS BAR -->
+  <section class="stats-bar fade-up">
+    <div class="stat-item">
+      <h3>10,000+</h3>
+      <p>Students</p>
+    </div>
+    <div class="stat-item">
+      <h3>500+</h3>
+      <p>AI Sessions Daily</p>
+    </div>
+    <div class="stat-item">
+      <h3>200+</h3>
+      <p>Competitions</p>
+    </div>
+    <div class="stat-item">
+      <h3>98%</h3>
+      <p>Parent Satisfaction</p>
+    </div>
+  </section>
+
+  <!-- 4. ACADEMIC AI PORTAL -->
+  <section id="academic" class="academic-ai">
+    <div class="container text-center" style="text-align: center;">
+      <div style="margin-bottom: 24px; animation: float 4s ease-in-out infinite;">
+        <span
+          style="background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue)); color: white; padding: 8px 24px; border-radius: 100px; font-weight: 700; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; box-shadow: 0 5px 15px rgba(180, 126, 255, 0.4);">Coming
+          Soon</span>
+      </div>
+      <div class="section-label">🧠 Academic AI Portal</div>
+      <h2 class="section-title">Personalized AI Learning —<br><span class="gradient-text">For Every Student, Every
+          Subject</span></h2>
+
+      <div class="features-grid">
+        <div class="glass-card feature-card fade-up">
+          <div class="feature-icon">🤖</div>
+          <h3>AI Tutor</h3>
+          <p>Adapts to your level, teaches at your pace.</p>
+        </div>
+        <div class="glass-card feature-card fade-up" style="transition-delay: 0.1s;">
+          <div class="feature-icon">💬</div>
+          <h3>AI Doubt Solver</h3>
+          <p>24/7 instant answers, any subject.</p>
+        </div>
+        <div class="glass-card feature-card fade-up" style="transition-delay: 0.2s;">
+          <div class="feature-icon">📝</div>
+          <h3>Mock Test Generator</h3>
+          <p>Auto-tests by class & topic.</p>
+        </div>
+        <div class="glass-card feature-card fade-up" style="transition-delay: 0.3s;">
+          <div class="feature-icon">📊</div>
+          <h3>Performance Tracker</h3>
+          <p>Real-time analytics & weak area detection.</p>
+        </div>
+        <div class="glass-card feature-card fade-up" style="transition-delay: 0.4s;">
+          <div class="feature-icon">🎨</div>
+          <h3>Visual Learning</h3>
+          <p>Diagrams, charts & animated concepts.</p>
+        </div>
+        <div class="glass-card feature-card fade-up" style="transition-delay: 0.5s;">
+          <div class="feature-icon">🎙️</div>
+          <h3>Spoken English Trainer</h3>
+          <p>AI conversation + pronunciation correction.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. SKILL DEVELOPMENT -->
+  <section id="skills" class="skills-section">
+    <div class="container">
+      <div class="section-label">🚀 Skill Development</div>
+      <h2 class="section-title">Future-Ready Skills.<br><span class="gradient-text">Real-World Projects.</span></h2>
+
+      <div class="skills-content">
+        <div class="skills-list fade-up">
+          <div class="skill-item"><span class="check">✓</span> Coding & App Development</div>
+          <div class="skill-item"><span class="check">✓</span> Artificial Intelligence & Robotics</div>
+          <div class="skill-item"><span class="check">✓</span> Effective Communication</div>
+          <div class="skill-item"><span class="check">✓</span> Personality Development</div>
+        </div>
+
+        <div class="course-mockup fade-up">
+          <div class="course-img">
+            <div class="live-badge">🔴 LIVE</div>
+          </div>
+          <div class="course-info">
+            <h3>Python for AI Beginners</h3>
+            <div class="mentor-info">
+              <div class="mentor-avatar"></div>
+              <div>
+                <div style="font-weight: 600; font-size: 0.9rem;">Mentor Sarah</div>
+                <div style="color: var(--accent-teal); font-size: 0.8rem;">Ex-Google</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pill-tags fade-up">
+          <span class="pill">Live Classes</span>
+          <span class="pill">Recorded Courses</span>
+          <span class="pill">Certificate Programs</span>
+          <span class="pill">Mentor Support</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. COMPETITIONS -->
+  <section id="competitions" class="competitions">
+    <div class="container">
+      <div class="section-label">🏆 Competitions</div>
+      <h2 class="section-title">Compete. Win. <span class="gradient-text">Grow.</span></h2>
+
+      <div class="glass-card leaderboard-container fade-up" style="padding: 0;">
+        <div class="leaderboard-row">
+          <div class="rank-info"><span class="rank" style="color: gold;">🥇</span>
+            <div class="student-avatar">👨🏽‍🎓</div> <strong>Aarav S.</strong>
+          </div>
+          <div><span style="color: var(--accent-teal); font-family: var(--font-mono);">9,450 pts</span></div>
+        </div>
+        <div class="leaderboard-row">
+          <div class="rank-info"><span class="rank" style="color: silver;">🥈</span>
+            <div class="student-avatar">👩🏽‍🎓</div> <strong>Diya M.</strong>
+          </div>
+          <div><span style="color: var(--accent-teal); font-family: var(--font-mono);">8,920 pts</span></div>
+        </div>
+        <div class="leaderboard-row">
+          <div class="rank-info"><span class="rank" style="color: #cd7f32;">🥉</span>
+            <div class="student-avatar">👦🏽</div> <strong>Rohan P.</strong>
+          </div>
+          <div><span style="color: var(--accent-teal); font-family: var(--font-mono);">8,100 pts</span></div>
+        </div>
+      </div>
+
+      <div class="comp-chips fade-up">
+        <span class="comp-chip">Quiz Battle</span>
+        <span class="comp-chip">Coding Contest</span>
+        <span class="comp-chip">Debate</span>
+        <span class="comp-chip">Scholarship Test</span>
+        <span class="comp-chip">Academic Olympiad</span>
+        <span class="comp-chip">Public Speaking</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. PORTFOLIO -->
+  <section id="portfolio" class="portfolio-section">
+    <div class="container">
+      <div class="section-label">📁 Student Portfolio</div>
+      <h2 class="section-title">Your Child's Achievement Profile<br><span class="gradient-text">— Built from Day
+          One</span></h2>
+
+      <div class="portfolio-wrapper fade-up">
+        <div class="floating-tag tag-1">Auto Resume</div>
+        <div class="floating-tag tag-2">AI Feedback</div>
+        <div class="floating-tag tag-3">Project Showcase</div>
+        <div class="floating-tag tag-4">Verified Achievements</div>
+
+        <div class="portfolio-card">
+          <div class="profile-img"></div>
+          <div class="rank-badge">Global Rank #124</div>
+          <h3 style="font-size: 2rem; margin-top: 10px;">Aditya Kulkarni</h3>
+          <p style="color: var(--text-muted); margin-bottom: 20px;">Class 10 • Science Stream</p>
+
+          <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+            <span class="pill" style="border-color: var(--accent-purple); color: var(--accent-purple);">Python
+              Pro</span>
+            <span class="pill" style="border-color: #ff9f43; color: #ff9f43;">Math Olympiad 🥇</span>
+            <span class="pill" style="border-color: var(--accent-teal); color: var(--accent-teal);">Best Debater</span>
+          </div>
+
+          <div class="portfolio-stats">
+            <div style="text-align: left;">
+              <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 5px;">Learning Velocity</div>
+              <div class="mini-chart"></div>
+            </div>
+            <div style="text-align: left;">
+              <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 5px;">Projects Built</div>
+              <div style="font-size: 1.5rem; font-weight: bold; font-family: var(--font-mono);">12</div>
+            </div>
+          </div>
+
+          <button class="btn btn-ghost" style="margin-top: 30px; width: 100%;">Share Profile ↗</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. HOW IT WORKS -->
+  <section class="timeline-section">
+    <div class="container text-center" style="text-align: center;">
+      <div class="section-label">⚙️ How It Works</div>
+      <h2 class="section-title">The Path to <span class="gradient-text">Excellence</span></h2>
+
+      <div class="timeline fade-up">
+        <div class="timeline-step">
+          <div class="step-node">1</div>
+          <h4>Sign Up Free</h4>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">Create an account in 60 seconds.</p>
+        </div>
+        <div class="timeline-step">
+          <div class="step-node">2</div>
+          <h4>AI Assessment</h4>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">Discover strengths and learning gaps.</p>
+        </div>
+        <div class="timeline-step">
+          <div class="step-node">3</div>
+          <h4>Learn & Compete</h4>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">Follow AI plan and join leagues.</p>
+        </div>
+        <div class="timeline-step">
+          <div class="step-node">4</div>
+          <h4>Build Portfolio</h4>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">Auto-generate a verifiable digital CV.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="container text-center" style="text-align: center;">
+      <h2 class="section-title">Trusted by <span class="gradient-text">Parents & Students</span></h2>
+
+      <div class="test-grid">
+        <div class="glass-card test-card fade-up">
+          <div class="stars">★★★★★</div>
+          <p class="quote">"Apni Vidya's AI Tutor explained Physics concepts my son struggled with for months. His
+            grades jumped from C to A!."</p>
+          <div class="author">
+            <div class="author-img"></div>
+            <div class="author-info" style="text-align: left;">
+              <h4>Priya Sharma</h4>
+              <p>Parent of Class 9 Student</p>
+            </div>
+          </div>
+        </div>
+        <div class="glass-card test-card fade-up" style="transition-delay: 0.1s;">
+          <div class="stars">★★★★★</div>
+          <p class="quote">"I learned Python and won the National Coding Contest here. The portfolio feature helped me
+            get a scholarship."</p>
+          <div class="author">
+            <div class="author-img"></div>
+            <div class="author-info" style="text-align: left;">
+              <h4>Rahul V.</h4>
+              <p>Class 11 Student</p>
+            </div>
+          </div>
+        </div>
+        <div class="glass-card test-card fade-up" style="transition-delay: 0.2s;">
+          <div class="stars">★★★★★</div>
+          <p class="quote">"The spoken English AI is amazing. My daughter speaks with so much confidence now in
+            debates."</p>
+          <div class="author">
+            <div class="author-img"></div>
+            <div class="author-info" style="text-align: left;">
+              <h4>Anil Desai</h4>
+              <p>Parent of Class 6 Student</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. CTA SECTION -->
+  <section class="cta-section fade-up">
+    <div class="container cta-content">
+      <h2 class="section-title">Join 10,000+ Students Already Growing with Apni Vidya</h2>
+      <form class="email-form">
+        <input type="email" placeholder="Enter your email address..." required>
+        <button type="submit" class="btn btn-primary">Get Started Free &rarr;</button>
+      </form>
+      <p class="cta-sub">No credit card required. Free for students forever.</p>
+    </div>
+  </section>
+
+  <!-- 11. FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-brand">
+            <div class="dot"></div>
+            Apni Vidya
+          </div>
+          <p>India's most advanced AI-driven learning platform. Nurturing the innovators of tomorrow, today.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="#">Academic AI</a></li>
+            <li><a href="#">Skill Courses</a></li>
+            <li><a href="#">Smart Portfolio</a></li>
+            <li><a href="#">Pricing</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Compete</h4>
+          <ul>
+            <li><a href="#">Live Leagues</a></li>
+            <li><a href="#">Scholarships</a></li>
+            <li><a href="#">Global Leaderboard</a></li>
+            <li><a href="#">Past Winners</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact Us</h4>
+          <ul style="color: var(--text-muted); font-size: 0.95rem;">
+            <li style="display: flex; gap: 10px; align-items: flex-start;">
+              <span>📍</span> <span>Agartala, India</span>
+            </li>
+            <li style="display: flex; gap: 10px; align-items: center;">
+              <span>📞</span> <a href="tel:+916009396197">+91 60093 96197</a>
+            </li>
+            <li style="display: flex; gap: 10px; align-items: center;">
+              <span>✉️</span> <a href="mailto:apnividya.in@gmail.com">apnividya.in@gmail.com</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2024 Apni Vidya. All rights reserved.</p>
+        <div class="social-icons">
+          <a href="#" class="social-icon">𝕏</a>
+          <a href="#" class="social-icon">in</a>
+          <a href="#" class="social-icon">IG</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button id="scroll-top" title="Go to top">↑</button>
+
+  <script>
+    // Navbar Scrolled State
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Intersection Observer for fade-up animations
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          // Optional: Stop observing once animated
+          // observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-up').forEach(element => {
+      observer.observe(element);
+    });
+
+    // Scroll to top button
+    const scrollTopBtn = document.getElementById('scroll-top');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        scrollTopBtn.classList.add('visible');
+      } else {
+        scrollTopBtn.classList.remove('visible');
+      }
+    });
+
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+</body>
+
+</html>
